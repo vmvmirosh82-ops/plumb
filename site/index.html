@@ -953,6 +953,10 @@ document.querySelectorAll('a,button,.btn,.svc,.tcard,.hcard,.ci').forEach(el => 
   el.addEventListener('mouseenter', () => ring.classList.add('big'));
   el.addEventListener('mouseleave', () => ring.classList.remove('big'));
 });
+// Bob gets a distinct "grab" cursor ring state
+const _bobEl = document.getElementById('plumbBob');
+_bobEl.addEventListener('mouseenter', () => { ring.classList.add('big'); dot.style.background = 'var(--brass)'; });
+_bobEl.addEventListener('mouseleave', () => { ring.classList.remove('big'); dot.style.background = 'var(--green)'; });
 
 /* ============================================================
    SCROLL PROGRESS
@@ -994,6 +998,9 @@ document.head.appendChild(styleEl);
    PLUMB — string draw → gravity fall → pendulum settle → sway
    ============================================================ */
 let _plumbSettled = false;
+let _plumbDragging = false;
+let _pendulumRaf   = null;
+
 (function initPlumb() {
   const line   = document.getElementById('plumbLine');
   const bob    = document.getElementById('plumbBob');
@@ -1017,46 +1024,139 @@ let _plumbSettled = false;
   const fallAnim = bob.animate([
     { offset: 0,    opacity: 0, transform: 'translateY(-260px)' },
     { offset: 0.14, opacity: 1, transform: 'translateY(-190px)' },
-    { offset: 0.62, opacity: 1, transform: 'translateY(0)'      }, // impact
-    { offset: 0.69, opacity: 1, transform: 'translateY(20px)'   }, // overshoot ↓
-    { offset: 0.76, opacity: 1, transform: 'translateY(-11px)'  }, // rebound ↑
-    { offset: 0.82, opacity: 1, transform: 'translateY(5px)'    }, // overshoot ↓
-    { offset: 0.87, opacity: 1, transform: 'translateY(-2px)'   }, // rebound ↑
-    { offset: 0.92, opacity: 1, transform: 'translateY(1px)'    }, // overshoot ↓
-    { offset: 0.96, opacity: 1, transform: 'translateY(-0.5px)' }, // tiny rebound
-    { offset: 1,    opacity: 1, transform: 'translateY(0)'       }  // rest
+    { offset: 0.62, opacity: 1, transform: 'translateY(0)'      },
+    { offset: 0.69, opacity: 1, transform: 'translateY(20px)'   },
+    { offset: 0.76, opacity: 1, transform: 'translateY(-11px)'  },
+    { offset: 0.82, opacity: 1, transform: 'translateY(5px)'    },
+    { offset: 0.87, opacity: 1, transform: 'translateY(-2px)'   },
+    { offset: 0.92, opacity: 1, transform: 'translateY(1px)'    },
+    { offset: 0.96, opacity: 1, transform: 'translateY(-0.5px)' },
+    { offset: 1,    opacity: 1, transform: 'translateY(0)'       }
   ], { duration: 1150, delay: 1050, easing: 'linear', fill: 'both' });
 
-  // ── 3. After bob lands → damped pendulum on entire rig ──────
+  // ── 3. After bob lands → damped settle pendulum → interaction ──
   fallAnim.finished.then(() => {
-    // Pin bob at rest, hand off to sway later
-    bob.style.opacity    = '1';
-    bob.style.transform  = 'none';
+    bob.style.opacity   = '1';
+    bob.style.transform = 'none';
     fallAnim.cancel();
 
-    rig.style.transformOrigin = '50% 0'; // rotate around string attachment
-    const START = 17;   // initial swing angle (degrees)
-    const DUR   = 3200; // settle duration (ms)
-    const t0    = performance.now();
+    rig.style.transformOrigin = '50% 0'; // keep for all future rotation
+    const START = 17, DUR = 3200, t0 = performance.now();
 
     (function pendulumTick(now) {
       const t     = Math.min((now - t0) / DUR, 1);
-      const decay = Math.exp(-t * 3.6);             // exponential damping
-      const angle = START * decay * Math.cos(t * Math.PI * 6); // ~3 full swings
+      const decay = Math.exp(-t * 3.6);
+      const angle = START * decay * Math.cos(t * Math.PI * 6);
       rig.style.transform = `translateX(-50%) rotate(${angle}deg)`;
 
       if (t < 1) {
-        requestAnimationFrame(pendulumTick);
+        _pendulumRaf = requestAnimationFrame(pendulumTick);
       } else {
-        // Fully settled — restore transform, enable parallax, start gentle sway
-        rig.style.transform       = 'translateX(-50%)';
-        rig.style.transformOrigin = '';
+        _pendulumRaf = null;
+        rig.style.transform = 'translateX(-50%)';
         _plumbSettled = true;
         bob.style.animation = 'bobSway 5s ease-in-out infinite alternate';
+        setupBobInteraction(rig, bob);
       }
     })(t0);
   });
 })();
+
+/* ============================================================
+   BOB INTERACTION — grab, swing with real pendulum physics
+   ============================================================ */
+function setupBobInteraction(rig, bob) {
+  const L    = window.innerWidth > 900 ? 240 : 200; // string length px
+  const G    = 5800;  // scaled gravity → ~1.3 s period
+  const DAMP = 1.6;   // damping → ~5 swings to settle
+  let ang = 0, vel = 0;
+  let dragging = false, physRaf = null;
+  let prevAng = 0, prevT = 0;
+
+  function getPivotX() {
+    return document.getElementById('heroRight').getBoundingClientRect().left +
+           document.getElementById('heroRight').getBoundingClientRect().width / 2;
+  }
+  function getPivotY() {
+    return document.getElementById('heroRight').getBoundingClientRect().top;
+  }
+  function pointerAngle(cx, cy) {
+    return Math.max(-1.35, Math.min(1.35,
+      Math.atan2(cx - getPivotX(), cy - getPivotY())));
+  }
+  function applyAngle(a) {
+    rig.style.transform = `translateX(-50%) rotate(${a * 180 / Math.PI}deg)`;
+  }
+
+  function onDown(e) {
+    const br   = bob.getBoundingClientRect();
+    const dist = Math.hypot(e.clientX - (br.left + br.width / 2),
+                            e.clientY - (br.top  + br.height / 2));
+    if (dist > 72) return;
+
+    dragging = true;
+    _plumbDragging = true;
+
+    // Cancel any in-flight settle animation
+    if (_pendulumRaf) { cancelAnimationFrame(_pendulumRaf); _pendulumRaf = null; _plumbSettled = true; }
+    if (physRaf)       { cancelAnimationFrame(physRaf);      physRaf = null; }
+
+    bob.style.animation = 'none';
+
+    ang = pointerAngle(e.clientX, e.clientY);
+    prevAng = ang; prevT = performance.now(); vel = 0;
+    applyAngle(ang);
+
+    e.preventDefault();
+    document.addEventListener('pointermove', onMove, { passive: false });
+    document.addEventListener('pointerup',   onUp);
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    const now    = performance.now();
+    const dt     = Math.max((now - prevT) / 1000, 0.008);
+    const newAng = pointerAngle(e.clientX, e.clientY);
+    // Smoothed release velocity (60% new, 40% old)
+    vel    = (newAng - prevAng) / dt * 0.6 + vel * 0.4;
+    prevAng = newAng; prevT = now;
+    ang    = newAng;
+    applyAngle(ang);
+  }
+
+  function onUp() {
+    dragging = false;
+    _plumbDragging = false;
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup',   onUp);
+    runPhysics();
+  }
+
+  function runPhysics() {
+    let last = performance.now();
+    (function tick(now) {
+      const dt    = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      const alpha = -(G / L) * Math.sin(ang) - DAMP * vel;
+      vel += alpha * dt;
+      ang += vel * dt;
+      applyAngle(ang);
+      if (Math.abs(ang) < 0.0015 && Math.abs(vel) < 0.003) {
+        ang = 0; vel = 0;
+        applyAngle(0);
+        bob.style.animation = 'bobSway 5s ease-in-out infinite alternate';
+        physRaf = null;
+        return;
+      }
+      physRaf = requestAnimationFrame(tick);
+    })(last);
+  }
+
+  // Grab cursor on the bob area
+  bob.style.touchAction = 'none';
+  bob.style.cursor      = 'grab';
+  bob.addEventListener('pointerdown', onDown);
+}
 
 /* ============================================================
    HERO-RIGHT MOUSE PARALLAX
@@ -1066,7 +1166,7 @@ const gridBg = document.getElementById('gridBg');
 const plumbRig = document.getElementById('plumbRig');
 
 heroRight.addEventListener('mousemove', e => {
-  if (!_plumbSettled) return;
+  if (!_plumbSettled || _plumbDragging) return;
   const r = heroRight.getBoundingClientRect();
   const cx = (e.clientX - r.left) / r.width - 0.5;
   const cy = (e.clientY - r.top) / r.height - 0.5;
