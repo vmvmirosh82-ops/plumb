@@ -1011,16 +1011,21 @@ let _plumbSettled = false;
     });
   });
 
-  // ── 2. Gravity fall (Web Animations API) ────────────────────
-  // Accelerates in (ease-in = gravity), impact bounce at end
+  // ── 2. Gravity fall + spring bounce (Web Animations API) ────
+  // Fall accelerates (keyframe positions simulate gravity curve),
+  // then 3 decaying bounce cycles: 20 → 11 → 5 → 2 → 0 px
   const fallAnim = bob.animate([
     { offset: 0,    opacity: 0, transform: 'translateY(-260px)' },
-    { offset: 0.18, opacity: 1, transform: 'translateY(-170px)' },
-    { offset: 0.78, opacity: 1, transform: 'translateY(12px)'   }, // overshoot
-    { offset: 0.88, opacity: 1, transform: 'translateY(-5px)'   }, // bounce
-    { offset: 0.95, opacity: 1, transform: 'translateY(2px)'    },
-    { offset: 1,    opacity: 1, transform: 'translateY(0)'       }
-  ], { duration: 820, delay: 1050, easing: 'linear', fill: 'both' });
+    { offset: 0.14, opacity: 1, transform: 'translateY(-190px)' },
+    { offset: 0.62, opacity: 1, transform: 'translateY(0)'      }, // impact
+    { offset: 0.69, opacity: 1, transform: 'translateY(20px)'   }, // overshoot ↓
+    { offset: 0.76, opacity: 1, transform: 'translateY(-11px)'  }, // rebound ↑
+    { offset: 0.82, opacity: 1, transform: 'translateY(5px)'    }, // overshoot ↓
+    { offset: 0.87, opacity: 1, transform: 'translateY(-2px)'   }, // rebound ↑
+    { offset: 0.92, opacity: 1, transform: 'translateY(1px)'    }, // overshoot ↓
+    { offset: 0.96, opacity: 1, transform: 'translateY(-0.5px)' }, // tiny rebound
+    { offset: 1,    opacity: 1, transform: 'translateY(0)'       }  // rest
+  ], { duration: 1150, delay: 1050, easing: 'linear', fill: 'both' });
 
   // ── 3. After bob lands → damped pendulum on entire rig ──────
   fallAnim.finished.then(() => {
