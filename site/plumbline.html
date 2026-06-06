@@ -226,19 +226,14 @@ h3,h4{font-family:var(--fh);font-weight:700;line-height:1.06;letter-spacing:-.01
 }
 
 /* plumb line SVG */
-.plumb-rig{position:absolute;top:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;will-change:transform;transition:transform .5s ease}
+.plumb-rig{position:absolute;top:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;will-change:transform}
 .plumb-svg-line{width:2px;overflow:visible}
 .plumb-svg-line line{stroke-dasharray:1;stroke-dashoffset:1;animation:drawLine 1.6s .2s cubic-bezier(.4,0,.15,1) forwards}
 @keyframes drawLine{to{stroke-dashoffset:0}}
 
-/* plumb bob */
-.plumb-bob{width:44px;flex:none;
-  opacity:0;transform:translateY(-30px);
-  animation:bobDrop 1s 1.2s cubic-bezier(.34,1.42,.64,1) forwards;
-}
-@keyframes bobDrop{to{opacity:1;transform:translateY(0)}}
-.plumb-bob.sway{animation:bobDrop 1s 1.2s cubic-bezier(.34,1.42,.64,1) forwards,bobSway 5s 2.2s ease-in-out infinite alternate}
-@keyframes bobSway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+/* plumb bob — JS drives the fall + pendulum; CSS only owns gentle perpetual sway */
+.plumb-bob{width:44px;flex:none;opacity:0;transform:translateY(-260px)}
+@keyframes bobSway{from{transform:rotate(-2deg)}to{transform:rotate(2deg)}}
 
 /* hero info cards */
 .hero-cards{
@@ -996,24 +991,66 @@ styleEl.textContent = '@keyframes wordUp{to{transform:translateY(0)}}';
 document.head.appendChild(styleEl);
 
 /* ============================================================
-   PLUMB STRING — SVG stroke-dashoffset draw
+   PLUMB — string draw → gravity fall → pendulum settle → sway
    ============================================================ */
-(function initString() {
-  const line = document.getElementById('plumbLine');
+let _plumbSettled = false;
+(function initPlumb() {
+  const line   = document.getElementById('plumbLine');
+  const bob    = document.getElementById('plumbBob');
+  const rig    = document.getElementById('plumbRig');
   const height = window.innerWidth > 900 ? 240 : 200;
+
+  // ── 1. Draw string ──────────────────────────────────────────
   line.setAttribute('y2', height);
   line.style.strokeDasharray = height;
   line.style.strokeDashoffset = height;
-  // trigger draw via CSS animation (already in stylesheet as keyframe drawLine)
-  // restart by clone trick after a microtask
   requestAnimationFrame(() => {
     line.style.animation = 'none';
     requestAnimationFrame(() => {
       line.style.animation = 'drawLine 1.6s 0.2s cubic-bezier(.4,0,.15,1) forwards';
     });
   });
-  // start bob sway after drop lands
-  setTimeout(() => document.getElementById('plumbBob').classList.add('sway'), 2400);
+
+  // ── 2. Gravity fall (Web Animations API) ────────────────────
+  // Accelerates in (ease-in = gravity), impact bounce at end
+  const fallAnim = bob.animate([
+    { offset: 0,    opacity: 0, transform: 'translateY(-260px)' },
+    { offset: 0.18, opacity: 1, transform: 'translateY(-170px)' },
+    { offset: 0.78, opacity: 1, transform: 'translateY(12px)'   }, // overshoot
+    { offset: 0.88, opacity: 1, transform: 'translateY(-5px)'   }, // bounce
+    { offset: 0.95, opacity: 1, transform: 'translateY(2px)'    },
+    { offset: 1,    opacity: 1, transform: 'translateY(0)'       }
+  ], { duration: 820, delay: 1050, easing: 'linear', fill: 'both' });
+
+  // ── 3. After bob lands → damped pendulum on entire rig ──────
+  fallAnim.finished.then(() => {
+    // Pin bob at rest, hand off to sway later
+    bob.style.opacity    = '1';
+    bob.style.transform  = 'none';
+    fallAnim.cancel();
+
+    rig.style.transformOrigin = '50% 0'; // rotate around string attachment
+    const START = 17;   // initial swing angle (degrees)
+    const DUR   = 3200; // settle duration (ms)
+    const t0    = performance.now();
+
+    (function pendulumTick(now) {
+      const t     = Math.min((now - t0) / DUR, 1);
+      const decay = Math.exp(-t * 3.6);             // exponential damping
+      const angle = START * decay * Math.cos(t * Math.PI * 6); // ~3 full swings
+      rig.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+
+      if (t < 1) {
+        requestAnimationFrame(pendulumTick);
+      } else {
+        // Fully settled — restore transform, enable parallax, start gentle sway
+        rig.style.transform       = 'translateX(-50%)';
+        rig.style.transformOrigin = '';
+        _plumbSettled = true;
+        bob.style.animation = 'bobSway 5s ease-in-out infinite alternate';
+      }
+    })(t0);
+  });
 })();
 
 /* ============================================================
@@ -1024,6 +1061,7 @@ const gridBg = document.getElementById('gridBg');
 const plumbRig = document.getElementById('plumbRig');
 
 heroRight.addEventListener('mousemove', e => {
+  if (!_plumbSettled) return;
   const r = heroRight.getBoundingClientRect();
   const cx = (e.clientX - r.left) / r.width - 0.5;
   const cy = (e.clientY - r.top) / r.height - 0.5;
