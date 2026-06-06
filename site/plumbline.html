@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Plumb Line — Precision Plumbing, Sacramento CA</title>
+<meta name="description" content="The Plumb Line. Sacramento's precision plumbers. Residential, commercial & emergency plumbing done straight, done right. Call 916-555-0190." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,400..500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   THE PLUMB LINE — Editorial-architectural light theme
+   Warm cream · near-black · deep forest green accent
+   ============================================================ */
+:root {
+  --cream:    #f4efe5;
+  --cream-2:  #ece5d7;
+  --cream-3:  #e0d8c8;
+  --ink:      #0f0e0c;
+  --ink-2:    #2a2824;
+  --ink-3:    #4a4844;
+  --muted:    #8a8680;
+  --muted-2:  #b8b2a8;
+
+  --green:    #1a3d2e;
+  --green-2:  #245c42;
+  --green-hi: #2e7a58;
+  --green-pale: rgba(26,61,46,.08);
+
+  --line:     rgba(15,14,12,.1);
+  --line-2:   rgba(15,14,12,.18);
+
+  --maxw: 1260px;
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--green); color: var(--cream); }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+
+/* grain overlay */
+body::after {
+  content: "";
+  position: fixed; inset: 0; z-index: 999; pointer-events: none;
+  opacity: .28;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E");
+}
+
+/* ---- typography ---- */
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; line-height: 1; letter-spacing: -.03em; }
+
+.eyebrow {
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--green); display: inline-flex; align-items: center; gap: .7em;
+}
+.eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--green); }
+
+/* ---- buttons ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: .6em;
+  font-family: var(--font-mono); font-size: .76rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; padding: 1em 1.7em; border-radius: 2px;
+  border: 1px solid transparent; cursor: pointer; transition: .22s ease; white-space: nowrap;
+}
+.btn-dark { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.btn-dark:hover { background: var(--green); border-color: var(--green); transform: translateY(-2px); }
+.btn-outline { border-color: var(--line-2); color: var(--ink); }
+.btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+.btn-green { background: var(--green); color: var(--cream); border-color: var(--green); }
+.btn-green:hover { background: var(--green-2); transform: translateY(-2px); box-shadow: 0 10px 28px -10px rgba(26,61,46,.5); }
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar {
+  background: var(--green); color: var(--cream);
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em;
+}
+.topbar .wrap {
+  display: flex; justify-content: space-between; align-items: center; height: 36px; gap: 16px; overflow: hidden;
+}
+.topbar .tb-left { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.topbar .tb-right { display: flex; gap: 22px; align-items: center; }
+.topbar a { opacity: .85; transition: .2s; }
+.topbar a:hover { opacity: 1; }
+.topbar .dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: #7ec9a6; margin-right: .5em; animation: blink 2s infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.tb-show-sm { display: none; }
+@media(max-width:680px){ .topbar .tb-hide{display:none} .tb-show-sm{display:inline} }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--cream); border-bottom: 1px solid var(--line);
+  transition: box-shadow .3s;
+}
+.nav.scrolled { box-shadow: 0 4px 24px -8px rgba(15,14,12,.14); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+
+.logo {
+  display: flex; align-items: center; gap: .9em;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.22rem;
+  letter-spacing: -.04em; color: var(--ink);
+}
+.logo-mark {
+  position: relative; width: 38px; height: 38px; flex: none;
+  border: 1.5px solid var(--ink); border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+}
+/* plumb bob inside logo mark */
+.logo-mark svg { width: 22px; height: 22px; }
+.logo small { display: block; font-family: var(--font-mono); font-size: .54rem; letter-spacing: .2em; color: var(--muted); font-weight: 400; margin-top: .2em; }
+
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: .9rem; color: var(--ink-3); font-weight: 500; letter-spacing: .01em; transition: .2s; position: relative; }
+.nav-links a::after { content: ""; position: absolute; left: 0; bottom: -5px; width: 0; height: 1.5px; background: var(--green); transition: .25s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta { display: flex; gap: 12px; align-items: center; }
+.burger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 6px; }
+.burger span { width: 22px; height: 1.5px; background: var(--ink); transition: .3s; display: block; }
+
+@media(max-width:980px){
+  .nav-links {
+    position: fixed; inset: 76px 0 auto 0; flex-direction: column; align-items: flex-start;
+    background: var(--cream); border-bottom: 1px solid var(--line);
+    padding: 24px 32px; gap: 16px;
+    transform: translateY(-110%); visibility: hidden; transition: transform .32s, visibility .32s;
+    box-shadow: 0 20px 40px -20px rgba(15,14,12,.18);
+  }
+  .nav-links.open { transform: translateY(0); visibility: visible; }
+  .nav-links a { font-size: 1.1rem; }
+  .nav-links .mob-cta {
+    display: flex; width: 100%; justify-content: center; margin-top: 6px;
+    font-family: var(--font-mono); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
+    padding: 1em; border: 1px solid var(--line-2); border-radius: 2px; color: var(--ink); transition: .22s;
+  }
+  .nav-links .mob-cta.g { background: var(--green); color: var(--cream); border-color: var(--green); }
+  .burger { display: flex; }
+  .nav-cta .btn-outline { display: none; }
+}
+@media(max-width:520px){
+  .nav-cta .btn-dark { display: none; }
+}
+.mob-cta { display: none; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative; min-height: 92vh; display: grid;
+  grid-template-columns: 1fr 1fr; overflow: hidden;
+}
+@media(max-width:900px){ .hero { grid-template-columns: 1fr; min-height: auto; } }
+
+/* left — copy */
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 56px 80px 0; border-right: 1px solid var(--line);
+  position: relative;
+}
+@media(max-width:900px){ .hero-left { padding: 64px 0 40px; border-right: 0; border-bottom: 1px solid var(--line); } }
+
+.hero-left .eyebrow { margin-bottom: 28px; }
+.hero-left h1 {
+  font-size: clamp(3.4rem, 7.5vw, 6.8rem); line-height: .95;
+  margin-bottom: .5em; letter-spacing: -.05em;
+}
+.hero-left h1 em { font-style: normal; color: var(--green); }
+.hero-left .lede {
+  font-size: 1.12rem; color: var(--ink-3); max-width: 34em; margin-bottom: 2.4em; line-height: 1.65;
+}
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 3em; }
+
+.hero-stats {
+  display: flex; gap: 32px; flex-wrap: wrap; padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.hero-stats .st b {
+  font-family: var(--font-display); font-size: 2.2rem; font-weight: 800;
+  color: var(--ink); display: block; line-height: 1; letter-spacing: -.04em;
+}
+.hero-stats .st b em { color: var(--green); font-style: normal; }
+.hero-stats .st span {
+  font-family: var(--font-mono); font-size: .67rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); display: block; margin-top: .4em;
+}
+
+/* right — plumb line visual */
+.hero-right {
+  position: relative; display: flex; flex-direction: column;
+  justify-content: flex-start; align-items: center; padding: 0;
+  background: var(--cream-2); overflow: hidden;
+}
+@media(max-width:900px){ .hero-right { min-height: 380px; } }
+
+/* The plumb line itself */
+.plumb-rig {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  width: 2px;
+}
+.plumb-string {
+  width: 1.5px; background: linear-gradient(to bottom, var(--ink) 0%, var(--green) 100%);
+  animation: unspoolString 1.4s cubic-bezier(.4,0,.2,1) forwards;
+  transform-origin: top;
+}
+@keyframes unspoolString { from { height: 0; } to { height: 65vh; } }
+@media(max-width:900px){
+  @keyframes unspoolString { from { height: 0; } to { height: 240px; } }
+}
+.plumb-bob {
+  width: 44px; height: 60px; position: relative;
+  animation: dropBob 1.5s .2s cubic-bezier(.34,1.56,.64,1) both, sway 4s 1.8s ease-in-out infinite alternate;
+}
+@keyframes dropBob { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+.plumb-bob svg { width: 100%; height: 100%; }
+
+/* decorative grid lines on hero right */
+.hero-right .grid-lines {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(15,14,12,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15,14,12,.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* info cards floating in hero-right */
+.hero-cards {
+  position: absolute; bottom: 48px; left: 0; right: 0;
+  display: flex; flex-direction: column; gap: 10px; padding: 0 32px;
+  animation: riseUp 1s .9s both;
+}
+@keyframes riseUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+.hcard {
+  background: var(--cream); border: 1px solid var(--line-2);
+  border-radius: 3px; padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.hcard .hck { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.hcard .hcv { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--green); }
+
+/* ============================================================
+   TRUST STRIP
+   ============================================================ */
+.strip {
+  border-block: 1px solid var(--line); background: var(--ink);
+  overflow: hidden; padding: 16px 0;
+}
+.strip-track { display: flex; gap: 52px; width: max-content; animation: march 30s linear infinite; }
+.strip:hover .strip-track { animation-play-state: paused; }
+@keyframes march { to { transform: translateX(-50%); } }
+.strip-track .it {
+  display: flex; align-items: center; gap: .65em;
+  font-family: var(--font-mono); font-size: .8rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--cream-3); white-space: nowrap; opacity: .88;
+}
+.strip-track .it .dot { width: 5px; height: 5px; border-radius: 50%; background: #7ec9a6; flex: none; }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section { padding: 100px 0; }
+.sec-head { margin-bottom: 56px; }
+.sec-head h2 { font-size: clamp(2.1rem, 4.6vw, 3.6rem); margin: .4em 0 .45em; }
+.sec-head p { font-size: 1.06rem; color: var(--ink-3); max-width: 46em; }
+.sec-head.center { text-align: center; }
+.sec-head.center .eyebrow { justify-content: center; }
+.sec-head.center p { margin-inline: auto; }
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services { border-top: 1px solid var(--line); }
+.svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+@media(max-width:900px){ .svc-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:580px){ .svc-grid { grid-template-columns: 1fr; } }
+
+.svc {
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 36px 30px; transition: background .25s;
+  position: relative; overflow: hidden;
+}
+.svc:nth-child(3n){ border-right: 0; }
+@media(max-width:900px){
+  .svc:nth-child(3n){ border-right: 1px solid var(--line); }
+  .svc:nth-child(2n){ border-right: 0; }
+}
+@media(max-width:580px){ .svc { border-right: 0; } }
+.svc::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--green); transform: scaleY(0); transform-origin: bottom;
+  transition: transform .4s cubic-bezier(.2,.7,.3,1); z-index: 0;
+}
+.svc:hover::before { transform: scaleY(1); }
+.svc:hover { color: var(--cream); }
+.svc:hover .svc-num, .svc:hover .svc-desc, .svc:hover .svc-tags span { color: rgba(244,239,229,.7); border-color: rgba(244,239,229,.25); }
+.svc:hover .svc-ic { border-color: rgba(244,239,229,.3); color: var(--cream); }
+
+.svc-num {
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted); position: relative; z-index: 1;
+  display: block; margin-bottom: 20px;
+}
+.svc-ic {
+  width: 48px; height: 48px; border: 1px solid var(--line-2);
+  border-radius: 3px; display: grid; place-items: center;
+  color: var(--green); position: relative; z-index: 1; margin-bottom: 20px;
+  transition: .3s;
+}
+.svc-ic svg { width: 22px; height: 22px; }
+.svc h3 { font-size: 1.35rem; margin-bottom: .45em; position: relative; z-index: 1; transition: .3s; }
+.svc-desc { font-size: .93rem; color: var(--ink-3); position: relative; z-index: 1; margin-bottom: 18px; transition: .3s; }
+.svc-tags { display: flex; flex-wrap: wrap; gap: 6px; position: relative; z-index: 1; }
+.svc-tags span {
+  font-family: var(--font-mono); font-size: .63rem; letter-spacing: .06em;
+  color: var(--muted); border: 1px solid var(--line); padding: .3em .65em; border-radius: 100px; transition: .3s;
+}
+
+/* ============================================================
+   THE STANDARD — 2-col editorial section
+   ============================================================ */
+.standard { background: var(--ink); color: var(--cream); }
+.standard-grid {
+  display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start;
+}
+@media(max-width:900px){ .standard-grid { grid-template-columns: 1fr; gap: 48px; } }
+.standard .eyebrow { color: #7ec9a6; }
+.standard .eyebrow::before { background: #7ec9a6; }
+.standard h2 { font-size: clamp(2.2rem, 5vw, 4rem); color: var(--cream); margin: .4em 0 .6em; }
+.standard p { color: rgba(244,239,229,.72); font-size: 1.04rem; margin-bottom: 2em; }
+.standard .btn-green { margin-top: .5em; }
+
+.principles { display: flex; flex-direction: column; gap: 0; }
+.principle {
+  display: flex; gap: 24px; padding: 28px 0; border-bottom: 1px solid rgba(244,239,229,.1);
+  align-items: flex-start;
+}
+.principle:last-child { border-bottom: 0; }
+.principle .num {
+  font-family: var(--font-mono); font-size: 2rem; font-weight: 500; color: rgba(244,239,229,.15);
+  flex: none; width: 40px; line-height: 1; letter-spacing: -.04em; padding-top: .1em;
+}
+.principle h3 { font-size: 1.18rem; margin-bottom: .3em; color: var(--cream); }
+.principle p { color: rgba(244,239,229,.62); font-size: .9rem; margin-bottom: 0; }
+
+/* ============================================================
+   PROCESS — horizontal timeline
+   ============================================================ */
+.process-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+}
+@media(max-width:820px){ .process-row { grid-template-columns: 1fr 1fr; } }
+@media(max-width:520px){ .process-row { grid-template-columns: 1fr; } }
+.proc-step {
+  padding: 36px 28px; border-right: 1px solid var(--line);
+  position: relative; transition: background .25s;
+}
+.proc-step:last-child { border-right: 0; }
+.proc-step:hover { background: var(--green-pale); }
+.proc-step .n {
+  font-family: var(--font-display); font-size: 3.2rem; font-weight: 800;
+  color: var(--cream-3); line-height: 1; letter-spacing: -.04em; margin-bottom: 14px;
+}
+.proc-step h3 { font-size: 1.15rem; margin-bottom: .4em; }
+.proc-step p { font-size: .9rem; color: var(--ink-3); }
+.proc-arrow {
+  position: absolute; top: 36px; right: -12px; z-index: 2;
+  width: 23px; height: 23px; background: var(--cream); border: 1px solid var(--line);
+  border-radius: 50%; display: grid; place-items: center; color: var(--green);
+}
+.proc-step:last-child .proc-arrow { display: none; }
+@media(max-width:820px){ .proc-arrow { display: none; } }
+
+/* ============================================================
+   SERVICE AREA
+   ============================================================ */
+.area { background: var(--cream-2); border-block: 1px solid var(--line); }
+.area-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 70px; align-items: center; }
+@media(max-width:880px){ .area-grid { grid-template-columns: 1fr; gap: 40px; } }
+.cities { display: flex; flex-wrap: wrap; gap: 9px; }
+.cities a {
+  font-family: var(--font-mono); font-size: .78rem; letter-spacing: .06em;
+  color: var(--ink-3); border: 1px solid var(--line-2);
+  padding: .6em 1em; border-radius: 100px; transition: .22s;
+  display: flex; align-items: center; gap: .5em;
+}
+.cities a::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--muted-2); transition: .22s; flex: none; }
+.cities a:hover { border-color: var(--green); color: var(--green); }
+.cities a:hover::before { background: var(--green); }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.t-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media(max-width:860px){ .t-grid { grid-template-columns: 1fr; } }
+.tcard { background: var(--cream); padding: 38px 32px; display: flex; flex-direction: column; gap: 20px; transition: background .25s; }
+.tcard:hover { background: var(--cream-2); }
+.tcard .stars { color: var(--green); letter-spacing: 2px; font-size: .95rem; }
+.tcard blockquote { font-size: 1.05rem; line-height: 1.6; color: var(--ink-2); flex: 1; font-style: italic; }
+.tcard .who { display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: 1px solid var(--line); }
+.tcard .av {
+  width: 40px; height: 40px; border-radius: 50%; flex: none;
+  background: var(--green); color: var(--cream);
+  display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: .9rem;
+}
+.tcard .who b { display: block; font-size: .95rem; }
+.tcard .who span { font-family: var(--font-mono); font-size: .67rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+/* ============================================================
+   EMERGENCY BAND
+   ============================================================ */
+.emerg {
+  background: var(--green); color: var(--cream); padding: 64px 0;
+  position: relative; overflow: hidden;
+}
+.emerg::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(
+      -55deg,
+      rgba(255,255,255,.028) 0, rgba(255,255,255,.028) 1px,
+      transparent 0, transparent 50%
+    );
+  background-size: 12px 12px;
+}
+.emerg-grid { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
+.emerg .eyebrow { color: #7ec9a6; }
+.emerg .eyebrow::before { background: #7ec9a6; }
+.emerg h2 { font-size: clamp(1.9rem, 4.5vw, 3rem); margin: .4em 0 .3em; }
+.emerg p { color: rgba(244,239,229,.8); max-width: 32em; font-size: 1.04rem; }
+.emerg .ec-right { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+@media(max-width:680px){ .emerg .ec-right { align-items: stretch; width: 100%; } }
+.big-phone { font-family: var(--font-display); font-weight: 800; font-size: 2.5rem; color: var(--cream); letter-spacing: -.03em; transition: .2s; }
+.big-phone:hover { color: #7ec9a6; }
+.emerg .btn-dark { background: var(--cream); color: var(--ink); border-color: var(--cream); font-weight: 600; }
+.emerg .btn-dark:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 70px; }
+@media(max-width:900px){ .contact-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+.ci-list { margin-top: 32px; display: flex; flex-direction: column; }
+.ci { display: flex; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); align-items: center; }
+.ci:first-child { border-top: 1px solid var(--line); }
+.ci .cic { flex: none; width: 42px; height: 42px; border: 1px solid var(--line-2); border-radius: 2px; display: grid; place-items: center; color: var(--green); transition: .25s; }
+.ci:hover .cic { background: var(--green); color: var(--cream); border-color: var(--green); }
+.ci .cic svg { width: 19px; height: 19px; }
+.ci .ck { font-family: var(--font-mono); font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: .2em; }
+.ci .cv { font-weight: 600; font-size: 1.02rem; }
+.ci .cv small { display: block; font-size: .82rem; color: var(--muted); font-weight: 400; margin-top: .15em; }
+.ci .cv a:hover { color: var(--green); }
+
+/* form */
+form.q {
+  border: 1px solid var(--line); border-radius: 3px; padding: 40px;
+  background: var(--cream);
+}
+form.q h3 { font-size: 1.5rem; margin-bottom: .25em; }
+form.q .fs { font-size: .9rem; color: var(--muted); margin-bottom: 28px; font-family: var(--font-mono); }
+.frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:500px){ .frow { grid-template-columns: 1fr; } }
+.field { margin-bottom: 14px; }
+.field label { display: block; font-family: var(--font-mono); font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.field input, .field select, .field textarea {
+  width: 100%; background: var(--cream-2); border: 1px solid var(--line-2); border-radius: 2px;
+  padding: .85em 1em; color: var(--ink); font-family: var(--font-body); font-size: .98rem;
+  transition: .2s; outline: none;
+}
+.field input::placeholder, .field textarea::placeholder { color: var(--muted-2); }
+.field textarea { resize: vertical; min-height: 96px; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,61,46,.1); }
+.field select {
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' fill='none' stroke='%231a3d2e' stroke-width='2'%3E%3Cpath d='M1.5 3.5l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 1em center;
+}
+form.q .btn { width: 100%; justify-content: center; margin-top: 6px; font-size: .84rem; }
+.form-note { font-family: var(--font-mono); font-size: .67rem; color: var(--muted); text-align: center; margin-top: 14px; letter-spacing: .04em; }
+.form-ok { display: none; text-align: center; padding: 24px 0; }
+.form-ok.show { display: block; }
+.form-ok .ck { width: 60px; height: 60px; border-radius: 50%; border: 1.5px solid var(--green); display: grid; place-items: center; color: var(--green); margin: 0 auto 16px; }
+.form-ok h3 { font-size: 1.4rem; margin-bottom: .3em; }
+.form-ok p { color: var(--ink-3); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer { background: var(--ink); color: var(--cream); padding: 72px 0 32px; }
+.foot-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 56px; }
+@media(max-width:820px){ .foot-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:520px){ .foot-grid { grid-template-columns: 1fr; } }
+.foot-grid h4 { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(244,239,229,.4); margin-bottom: 20px; }
+.foot-col a, .foot-col p { display: block; color: rgba(244,239,229,.72); font-size: .92rem; margin-bottom: 11px; transition: .2s; }
+.foot-col a:hover { color: #7ec9a6; }
+.foot-brand .logo { margin-bottom: 16px; color: var(--cream); }
+.foot-brand .logo .logo-mark { border-color: rgba(244,239,229,.3); }
+.foot-brand p { color: rgba(244,239,229,.55); font-size: .9rem; max-width: 28em; }
+.foot-pay { display: flex; gap: 8px; margin-top: 14px; }
+.foot-pay span { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .06em; border: 1px solid rgba(244,239,229,.2); padding: .5em .8em; border-radius: 2px; color: rgba(244,239,229,.5); }
+.foot-bot { border-top: 1px solid rgba(244,239,229,.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.foot-bot span { font-family: var(--font-mono); font-size: .7rem; color: rgba(244,239,229,.38); }
+.foot-bot a:hover { color: rgba(244,239,229,.7); }
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+[data-reveal] { opacity: 0; transform: translateY(22px); transition: .7s cubic-bezier(.2,.7,.3,1); }
+[data-reveal].in { opacity: 1; transform: none; }
+[data-reveal][data-d="1"] { transition-delay: .07s; }
+[data-reveal][data-d="2"] { transition-delay: .14s; }
+[data-reveal][data-d="3"] { transition-delay: .21s; }
+[data-reveal][data-d="4"] { transition-delay: .28s; }
+
+@media(prefers-reduced-motion:reduce){
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* hero text entrance */
+[data-load] { opacity: 0; transform: translateY(18px); animation: enter .85s cubic-bezier(.2,.7,.3,1) forwards; }
+[data-load="1"] { animation-delay: .05s; }
+[data-load="2"] { animation-delay: .18s; }
+[data-load="3"] { animation-delay: .3s; }
+[data-load="4"] { animation-delay: .42s; }
+[data-load="5"] { animation-delay: .54s; }
+@keyframes enter { to { opacity: 1; transform: none; } }
+
+/* ============================================================
+   HERO SVG STRING HEIGHT CSS VAR
+   ============================================================ */
+@media(max-width:900px) {
+  .plumb-string { animation: unspoolString-mob 1.4s cubic-bezier(.4,0,.2,1) forwards; }
+  @keyframes unspoolString-mob { from { height: 0; } to { height: 220px; } }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="tb-left"><span class="dot"></span><span class="tb-hide">24/7 Emergency &nbsp;·&nbsp; Licensed, Bonded &amp; Insured</span><span class="tb-show-sm">24/7 Emergency</span></div>
+    <div class="tb-right" style="flex:none">
+      <span class="tb-hide">Lic. #CA-PLB-7741 &nbsp;·&nbsp;</span><a href="tel:9165550190"><strong>916-555-0190</strong></a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <!-- plumb bob icon -->
+          <line x1="12" y1="2" x2="12" y2="9"/>
+          <polygon points="12,22 7,12 12,9 17,12" fill="currentColor" stroke="none"/>
+        </svg>
+      </span>
+      <span>The Plumb Line<small>PRECISION PLUMBING · SACRAMENTO</small></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#standard">Our Standard</a>
+      <a href="#area">Service Area</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a href="tel:9165550190" class="mob-cta">Call 916-555-0190</a>
+      <a href="#contact" class="mob-cta g">Free Estimate</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="tel:9165550190" class="btn btn-outline">916-555-0190</a>
+      <a href="#contact" class="btn btn-dark">Free Estimate</a>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-left wrap" style="padding-right:56px">
+    <span class="eyebrow" data-load="1">Sacramento Plumbers · Est. 2008</span>
+    <h1 data-load="2">If it's not<br><em>straight,</em><br>it's not done.</h1>
+    <p class="lede" data-load="3">The Plumb Line is Sacramento's precision plumbing company — residential, commercial, and 24-hour emergency. We don't cut corners because our name doesn't let us.</p>
+    <div class="hero-cta" data-load="4">
+      <a href="tel:9165550190" class="btn btn-dark">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call 24/7
+      </a>
+      <a href="#contact" class="btn btn-outline">Book a free estimate</a>
+    </div>
+    <div class="hero-stats" data-load="5">
+      <div class="st"><b><em>16</em>+</b><span>Years in Sacramento</span></div>
+      <div class="st"><b>24/7</b><span>Emergency line</span></div>
+      <div class="st"><b>4.9<em>★</em></b><span>Google rating</span></div>
+      <div class="st"><b>0</b><span>Callbacks needed</span></div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="grid-lines"></div>
+    <!-- animated plumb line -->
+    <div class="plumb-rig">
+      <div class="plumb-string" style="height:65vh"></div>
+      <div class="plumb-bob">
+        <svg viewBox="0 0 44 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- string top anchor -->
+          <rect x="18" y="0" width="8" height="4" rx="1" fill="#1a3d2e"/>
+          <!-- body -->
+          <path d="M8 20 Q8 8 22 8 Q36 8 36 20 L30 46 Q30 54 22 56 Q14 54 14 46 Z" fill="#1a3d2e"/>
+          <!-- sheen -->
+          <path d="M13 16 Q14 10 20 10 Q26 10 28 14" stroke="rgba(255,255,255,.18)" stroke-width="2" stroke-linecap="round"/>
+          <!-- point -->
+          <path d="M14 46 L22 58 L30 46" fill="#245c42"/>
+          <!-- ring -->
+          <circle cx="22" cy="20" r="5" fill="rgba(255,255,255,.12)"/>
+          <circle cx="22" cy="20" r="2.5" fill="rgba(255,255,255,.2)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- info cards -->
+    <div class="hero-cards">
+      <div class="hcard">
+        <span class="hck">License</span>
+        <span class="hcv">CA-PLB-7741 · C-36</span>
+      </div>
+      <div class="hcard">
+        <span class="hck">Warranty</span>
+        <span class="hcv">2-yr labor, guaranteed</span>
+      </div>
+      <div class="hcard">
+        <span class="hck">Estimate</span>
+        <span class="hcv">Free &amp; binding</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="strip">
+  <div class="strip-track" id="strip"></div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">What we do</span>
+      <h2>No job too precise, no emergency too late.</h2>
+      <p>Hover a card. We're proud of everything we do.</p>
+    </div>
+  </div>
+  <div class="wrap" style="padding-left:0;padding-right:0;max-width:var(--maxw);margin:0 auto">
+    <div class="svc-grid" style="border-left:1px solid var(--line);border-top:1px solid var(--line)">
+
+      <article class="svc" data-reveal data-d="1">
+        <span class="svc-num">01</span>
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+        <h3>Residential</h3>
+        <p class="svc-desc">Faucets, fixtures, toilets, re-pipes, water pressure — your home treated with care and speed.</p>
+        <div class="svc-tags"><span>Re-pipes</span><span>Fixtures</span><span>Leak repair</span><span>Water pressure</span></div>
+      </article>
+
+      <article class="svc" data-reveal data-d="2">
+        <span class="svc-num">02</span>
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M6 21V5h6v16M12 21V9h6v12"/></svg></div>
+        <h3>Commercial</h3>
+        <p class="svc-desc">Offices, restaurants, retail and multi-unit. Scheduled maintenance that respects your operation.</p>
+        <div class="svc-tags"><span>Backflow</span><span>Grease lines</span><span>Maintenance</span></div>
+      </article>
+
+      <article class="svc" data-reveal data-d="3">
+        <span class="svc-num">03</span>
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div>
+        <h3>24-Hr Emergency</h3>
+        <p class="svc-desc">Burst pipe at 2am? A real plumber answers, not a voicemail. We're en route within the hour.</p>
+        <div class="svc-tags"><span>Burst pipes</span><span>Sewage</span><span>Shutoffs</span></div>
+      </article>
+
+      <article class="svc" data-reveal data-d="1">
+        <span class="svc-num">04</span>
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5"/></svg></div>
+        <h3>Water Heaters</h3>
+        <p class="svc-desc">Tank and tankless installs, repairs and flushes. Sized correctly, installed once.</p>
+        <div class="svc-tags"><span>Tankless</span><span>Installs</span><span>Repair</span></div>
+      </article>
+
+      <article class="svc" data-reveal data-d="2">
+        <span class="svc-num">05</span>
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z"/><path d="M3 9V7a4 4 0 0 1 8 0"/><path d="M13 9V7a4 4 0 0 1 8 0v2"/></svg></div>
+        <h3>Drain &amp; Sewer</h3>
+        <p class="svc-desc">Hydro-jetting, camera inspections, and trenchless sewer repair — no digging up your yard.</p>
+        <div class="svc-tags"><span>Hydro-jet</span><span>Camera</span><span>Trenchless</span></div>
+      </article>
+
+      <article class="svc" data-reveal data-d="3">
+        <span class="svc-num">06</span>
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>HVAC</h3>
+        <p class="svc-desc">Heating, ventilation and air conditioning — the whole house, one company, one call.</p>
+        <div class="svc-tags"><span>Heating</span><span>Air conditioning</span><span>Ventilation</span></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- OUR STANDARD -->
+<section class="standard" id="standard">
+  <div class="wrap standard-grid">
+    <div data-reveal>
+      <span class="eyebrow">Our standard</span>
+      <h2>We do it straight or we do it again.</h2>
+      <p>The plumb bob has been used for 4,000 years to find true vertical. That's our standard — not "good enough," but exactly right.</p>
+      <a href="#contact" class="btn btn-green">Get a free estimate</a>
+    </div>
+    <div class="principles" data-reveal data-d="2">
+      <div class="principle">
+        <span class="num">01</span>
+        <div><h3>Fixed, honest quotes</h3><p>You approve the price before we lift a wrench. No "while we're in there" upsells — ever.</p></div>
+      </div>
+      <div class="principle">
+        <span class="num">02</span>
+        <div><h3>On time, in writing</h3><p>A tight arrival window and a text when we're 20 minutes out. Your time matters.</p></div>
+      </div>
+      <div class="principle">
+        <span class="num">03</span>
+        <div><h3>Clean site, always</h3><p>We arrive with drop cloths and leave with our mess. Your home should be cleaner than we found it.</p></div>
+      </div>
+      <div class="principle">
+        <span class="num">04</span>
+        <div><h3>2-year labor warranty</h3><p>If it's not right we come back and make it right, no debate, no invoice.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" style="padding-bottom:80px">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">How it works</span>
+      <h2>Simple from first call to final flush.</h2>
+    </div>
+    <div class="process-row" data-reveal>
+      <div class="proc-step">
+        <div class="n">01</div>
+        <h3>Call or book</h3>
+        <p>A real plumber picks up — 24 hours a day, 7 days a week. No hold music.</p>
+        <span class="proc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 6h7M7 3l3 3-3 3"/></svg></span>
+      </div>
+      <div class="proc-step">
+        <div class="n">02</div>
+        <h3>Free estimate</h3>
+        <p>We diagnose the problem and give you a flat, fixed price before any work starts.</p>
+        <span class="proc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 6h7M7 3l3 3-3 3"/></svg></span>
+      </div>
+      <div class="proc-step">
+        <div class="n">03</div>
+        <h3>Precision work</h3>
+        <p>Quality parts, clean execution, no shortcuts — done once, done right.</p>
+        <span class="proc-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M2.5 6h7M7 3l3 3-3 3"/></svg></span>
+      </div>
+      <div class="proc-step">
+        <div class="n">04</div>
+        <h3>Warranted</h3>
+        <p>2-year labor warranty on every job. You're covered — full stop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section class="area" id="area">
+  <div class="wrap area-grid">
+    <div data-reveal>
+      <span class="eyebrow">Where we work</span>
+      <h2 style="font-size:clamp(2rem,4.5vw,3.2rem);margin:.4em 0 .5em">Greater Sacramento, covered.</h2>
+      <p style="color:var(--ink-3);margin-bottom:28px">Trucks across the region for fast response. Don't see your city? Call — we probably cover it.</p>
+      <a href="tel:9165550190" class="btn btn-dark">Check availability</a>
+    </div>
+    <div class="cities" data-reveal data-d="2">
+      <a href="#contact">Sacramento</a><a href="#contact">Elk Grove</a><a href="#contact">Fair Oaks</a>
+      <a href="#contact">Folsom</a><a href="#contact">West Sacramento</a><a href="#contact">Natomas</a>
+      <a href="#contact">Davis</a><a href="#contact">Woodland</a><a href="#contact">Carmichael</a>
+      <a href="#contact">Rancho Cordova</a><a href="#contact">Granite Bay</a><a href="#contact">Roseville</a>
+      <a href="#contact">Rocklin</a><a href="#contact">Loomis</a><a href="#contact">Gold River</a>
+      <a href="#contact">El Dorado Hills</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head center" data-reveal>
+      <span class="eyebrow">Reviews</span>
+      <h2>Our name earns it, our work keeps it.</h2>
+      <p>4.9★ across hundreds of Sacramento jobs. What neighbours say:</p>
+    </div>
+    <div class="t-grid" data-reveal>
+      <article class="tcard">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Called at 11pm for a burst pipe. Plumber at my door in 45 minutes, quoted on the spot, and water back before 2am. I've never been so relieved."</blockquote>
+        <div class="who"><div class="av">KR</div><div><b>Karen R.</b><span>Midtown Sacramento</span></div></div>
+      </article>
+      <article class="tcard">
+        <div class="stars">★★★★★</div>
+        <blockquote>"The Plumb Line installed our tankless heater and re-piped our 1960s bungalow. Meticulous work, clean site, zero surprises on the bill. Will never call anyone else."</blockquote>
+        <div class="who"><div class="av">MJ</div><div><b>Marcus J.</b><span>Land Park</span></div></div>
+      </article>
+      <article class="tcard">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Three commercial properties over four years — same quality, same honesty every time. They set the standard for what a plumber should be."</blockquote>
+        <div class="who"><div class="av">SL</div><div><b>Sandra L.</b><span>Property Manager · Roseville</span></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY -->
+<section style="padding:0">
+  <div class="wrap" style="padding-block:0">
+    <div class="emerg" style="border-radius:4px;margin-block:0" data-reveal>
+      <div class="emerg-grid">
+        <div>
+          <span class="eyebrow">Plumbing emergency?</span>
+          <h2>Don't let it get worse. Call now.</h2>
+          <p>Burst pipes and sewage backups escalate fast. We're dispatched 24/7/365 — a real plumber answers, a truck rolls.</p>
+        </div>
+        <div class="ec-right">
+          <a href="tel:9165550190" class="big-phone">916-555-0190</a>
+          <a href="#contact" class="btn btn-dark">Or book non-emergency</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div data-reveal>
+      <span class="eyebrow">Get in touch</span>
+      <h2 style="font-size:clamp(2rem,4.2vw,3rem);margin:.4em 0 .4em">Free estimate. No pressure. Honest answer.</h2>
+      <p style="color:var(--ink-3)">Tell us what's happening. We'll respond within the hour during business hours, immediately for emergencies.</p>
+      <div class="ci-list">
+        <div class="ci"><div class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="ck">Call · 24/7</div><div class="cv"><a href="tel:9165550190">916-555-0190</a><small>A real plumber answers</small></div></div></div>
+        <div class="ci"><div class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></div><div><div class="ck">Email</div><div class="cv"><a href="mailto:hello@theplumbline.co">hello@theplumbline.co</a></div></div></div>
+        <div class="ci"><div class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ck">Location</div><div class="cv">Sacramento, CA<small>Serving greater Sacramento region</small></div></div></div>
+        <div class="ci"><div class="cic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><div class="ck">Hours</div><div class="cv">Mon–Fri 7a–6p<small>Emergency line: 24 / 7 / 365</small></div></div></div>
+      </div>
+    </div>
+
+    <form class="q" id="quoteForm" data-reveal data-d="2" novalidate>
+      <div id="formBody">
+        <h3>Request a free estimate</h3>
+        <p class="fs">Lic. CA-PLB-7741 · Response within 1 hour</p>
+        <div class="frow">
+          <div class="field"><label for="fn">Your name</label><input id="fn" name="fn" required placeholder="Jane Smith" /></div>
+          <div class="field"><label for="ph">Phone</label><input id="ph" name="ph" type="tel" required placeholder="(916) 555-0000" /></div>
+        </div>
+        <div class="field"><label for="em">Email</label><input id="em" name="em" type="email" placeholder="jane@example.com" /></div>
+        <div class="frow">
+          <div class="field"><label for="sv">Service type</label>
+            <select id="sv" name="sv">
+              <option>Emergency repair</option><option>Residential plumbing</option>
+              <option>Commercial plumbing</option><option>Water heater</option>
+              <option>Drain &amp; sewer</option><option>HVAC</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field"><label for="ct">City</label>
+            <select id="ct" name="ct">
+              <option>Sacramento</option><option>Elk Grove</option><option>Folsom</option>
+              <option>Roseville</option><option>Davis</option><option>Rancho Cordova</option>
+              <option>Carmichael</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="ms">What's going on?</label><textarea id="ms" name="ms" placeholder="Describe the issue…"></textarea></div>
+        <button type="submit" class="btn btn-dark">Send request →</button>
+        <div class="form-note">Or call direct — 916-555-0190 · A real person answers 24/7</div>
+      </div>
+      <div class="form-ok" id="formOk">
+        <div class="ck"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>Request received.</h3>
+        <p>We'll be in touch within the hour. Emergency? Call <a href="tel:9165550190" style="color:var(--green);font-weight:600">916-555-0190</a>.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col foot-brand">
+        <a href="#top" class="logo">
+          <span class="logo-mark" style="border-color:rgba(244,239,229,.3)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="9"/><polygon points="12,22 7,12 12,9 17,12" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span style="color:var(--cream)">The Plumb Line<small style="color:rgba(244,239,229,.45)">PRECISION PLUMBING · SACRAMENTO</small></span>
+        </a>
+        <p>If it's not straight, it's not done. Precision plumbing for Sacramento homes and businesses since 2008.</p>
+        <div class="foot-pay"><span>VISA</span><span>MC</span><span>CHECK</span><span>VENMO</span></div>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <a href="#services">Residential</a><a href="#services">Commercial</a>
+        <a href="#services">Emergency</a><a href="#services">Water heaters</a>
+        <a href="#services">Drain &amp; sewer</a><a href="#services">HVAC</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#standard">Our Standard</a><a href="#process">How it works</a>
+        <a href="#area">Service area</a><a href="#reviews">Reviews</a>
+        <a href="#contact">Free estimate</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:9165550190">916-555-0190</a>
+        <a href="mailto:hello@theplumbline.co">hello@theplumbline.co</a>
+        <p>Sacramento, CA</p>
+        <p>Lic. CA-PLB-7741 · C-36</p>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2008–2026 The Plumb Line Plumbing Co.</span>
+      <span>Sacramento · Roseville · Folsom · Elk Grove &amp; surrounding areas</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* nav scroll */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10));
+
+/* burger */
+const burger = document.getElementById('burger'), nl = document.getElementById('navLinks');
+burger.addEventListener('click', () => nl.classList.toggle('open'));
+nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nl.classList.remove('open')));
+
+/* trust strip */
+const its = [
+  ['Precision Plumbing'],['Licensed & Insured'],['24/7 Emergency'],
+  ['2-Year Labor Warranty'],['Free Estimates'],['Lic. CA-PLB-7741'],
+  ['Upfront Pricing'],['Sacramento Since 2008'],
+];
+const strip = document.getElementById('strip');
+strip.innerHTML = its.map(([t]) => `<span class="it"><span class="dot"></span>${t}</span>`).join('') .repeat(2);
+
+/* scroll reveal */
+const io = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+}, { threshold: .14 });
+document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+/* form */
+document.getElementById('quoteForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const fn = e.target.fn, ph = e.target.ph;
+  let ok = true;
+  [fn, ph].forEach(f => { if(!f.value.trim()){ f.style.borderColor='#c0392b'; ok=false; } });
+  if(!ok) return;
+  document.getElementById('formBody').style.display = 'none';
+  document.getElementById('formOk').classList.add('show');
+});
+document.querySelectorAll('#quoteForm input').forEach(i => i.addEventListener('input', e => e.target.style.borderColor = ''));
+
+/* hero plumb string height to viewport */
+const str = document.querySelector('.plumb-string');
+if(str) str.style.height = window.innerWidth > 900 ? '65vh' : '220px';
+</script>
+</body>
+</html>
