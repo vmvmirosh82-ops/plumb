@@ -7,7 +7,7 @@
 <meta name="description" content="The Plumb Line. Sacramento's precision plumbers. Residential, commercial & emergency plumbing done straight, done right. Call 916-555-0190."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,400;display=swap&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,300..700;1,400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 
 <style>
 /* ============================================================
@@ -39,8 +39,9 @@
   --line-2: rgba(14,12,9,.18);
 
   --maxw: 1260px;
-  --fd:   'Syne', sans-serif;
-  --fb:   'DM Sans', sans-serif;
+  --fd:   'Anton', 'Arial Narrow', sans-serif;   /* bold industrial display */
+  --fh:   'Archivo', sans-serif;                  /* sub-headings */
+  --fb:   'Archivo', sans-serif;                  /* body */
   --fm:   'DM Mono', monospace;
   --ease: cubic-bezier(.2,.7,.3,1);
 }
@@ -63,7 +64,8 @@ body::after{
 }
 
 /* ---- type ---- */
-h1,h2,h3,h4{font-family:var(--fd);font-weight:800;line-height:1;letter-spacing:-.03em}
+h1,h2{font-family:var(--fd);font-weight:400;line-height:.96;letter-spacing:.01em;text-transform:uppercase}
+h3,h4{font-family:var(--fh);font-weight:700;line-height:1.06;letter-spacing:-.01em}
 .eyebrow{
   font-family:var(--fm);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
   color:var(--green);display:inline-flex;align-items:center;gap:.7em;
@@ -138,7 +140,7 @@ h1,h2,h3,h4{font-family:var(--fd);font-weight:800;line-height:1;letter-spacing:-
 .nav{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:1px solid transparent;transition:.35s}
 .nav.scrolled{border-bottom-color:var(--line);box-shadow:0 4px 30px -12px rgba(14,12,9,.14)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
-.logo{display:flex;align-items:center;gap:.8em;font-family:var(--fd);font-weight:800;font-size:1.18rem;letter-spacing:-.04em;color:var(--ink);white-space:nowrap}
+.logo{display:flex;align-items:center;gap:.7em;font-family:var(--fd);font-weight:400;font-size:1.4rem;letter-spacing:.02em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
 .logo-mark{width:34px;height:34px;flex:none;border:1.5px solid var(--ink);border-radius:3px;display:grid;place-items:center;transition:.25s}
 .logo:hover .logo-mark{border-color:var(--green);background:var(--green);color:var(--cream)}
 .logo-mark svg{width:18px;height:28px;transition:.25s}
@@ -185,7 +187,7 @@ h1,h2,h3,h4{font-family:var(--fd);font-weight:800;line-height:1;letter-spacing:-
 .hero-left .eyebrow{margin-bottom:28px;opacity:0;animation:fadeUp .7s .08s var(--ease) forwards}
 
 /* word-by-word headline reveal */
-.hero-h1{font-size:clamp(3.2rem,7.5vw,6.6rem);line-height:.95;letter-spacing:-.05em;margin-bottom:.55em}
+.hero-h1{font-size:clamp(3.1rem,7.3vw,6.4rem);line-height:.92;letter-spacing:.01em;margin-bottom:.5em}
 .ww{display:inline-block;overflow:hidden;vertical-align:bottom}
 .wi{display:inline-block;transform:translateY(105%)}
 
