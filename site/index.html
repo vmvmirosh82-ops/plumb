@@ -470,6 +470,59 @@ footer{background:var(--ink);color:var(--cream);padding:72px 0 32px}
 .foot-bot span{font-family:var(--fm);font-size:.69rem;color:rgba(237,228,207,.32)}
 
 /* ============================================================
+   DIFFERENCE (comparison)
+   ============================================================ */
+.diff{background:var(--cream-2);border-block:1px solid var(--line)}
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:stretch}
+@media(max-width:760px){.diff-grid{grid-template-columns:1fr}}
+.diff-col{border:1px solid var(--line-2);border-radius:4px;padding:34px 32px;background:var(--cream);display:flex;flex-direction:column}
+.diff-us{background:var(--green);color:var(--cream);border-color:var(--green);box-shadow:0 34px 64px -42px rgba(22,51,34,.75);position:relative;overflow:hidden}
+.diff-us::after{content:"";position:absolute;top:-40%;right:-20%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(154,120,64,.22),transparent 70%);pointer-events:none}
+.diff-head{display:flex;align-items:center;gap:14px;padding-bottom:20px;margin-bottom:6px;border-bottom:1px solid var(--line);position:relative;z-index:1}
+.diff-us .diff-head{border-bottom-color:rgba(237,228,207,.16)}
+.dh-mark{width:42px;height:42px;flex:none;border-radius:3px;display:grid;place-items:center;border:1.5px solid var(--line-2);color:var(--green)}
+.dh-mark svg{width:20px;height:32px}
+.diff-us .dh-mark{border-color:rgba(237,228,207,.3);background:rgba(237,228,207,.06);color:var(--cream)}
+.diff-head b{font-family:var(--fd);font-weight:400;text-transform:uppercase;font-size:1.18rem;letter-spacing:.02em;display:block;line-height:1}
+.diff-head span{font-family:var(--fm);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.diff-us .diff-head span{color:var(--brass-hi)}
+.diff-col ul{list-style:none;display:flex;flex-direction:column;position:relative;z-index:1}
+.diff-col li{display:flex;gap:13px;align-items:flex-start;padding:15px 2px;border-bottom:1px solid var(--line);font-size:.95rem;line-height:1.45}
+.diff-col li:last-child{border-bottom:0}
+.diff-us li{border-bottom-color:rgba(237,228,207,.12);color:rgba(237,228,207,.92)}
+.diff-them li{color:var(--muted)}
+.di{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;margin-top:.08em}
+.di svg{width:12px;height:12px}
+.di-y{background:var(--sage-hi);color:var(--green)}
+.di-n{border:1px solid var(--line-2);color:var(--muted-2)}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:start}
+@media(max-width:880px){.faq-grid{grid-template-columns:1fr;gap:36px}}
+.faq-intro h2{font-size:clamp(2rem,4.5vw,3.4rem);margin:.4em 0 .5em}
+.faq-intro p{color:var(--ink-3);margin-bottom:26px;max-width:30em}
+.faq-list{border-top:1px solid var(--line-2)}
+.faq-item{border-bottom:1px solid var(--line-2)}
+.faq-item summary{
+  list-style:none;cursor:none;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:22px 4px;font-family:var(--fh);font-weight:700;font-size:1.07rem;color:var(--ink);transition:color .2s;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:hover{color:var(--green)}
+.faq-ic{flex:none;width:26px;height:26px;border:1px solid var(--line-2);border-radius:50%;display:grid;place-items:center;color:var(--green);transition:.3s;position:relative}
+.faq-ic::before,.faq-ic::after{content:"";position:absolute;background:currentColor;border-radius:2px}
+.faq-ic::before{width:11px;height:1.6px}
+.faq-ic::after{width:1.6px;height:11px;transition:transform .3s var(--ease)}
+.faq-item[open] .faq-ic{background:var(--green);color:var(--cream);border-color:var(--green)}
+.faq-item[open] .faq-ic::after{transform:scaleY(0)}
+.faq-a{color:var(--ink-3);font-size:.96rem;line-height:1.62;padding:0 4px 24px;max-width:42em}
+.faq-item[open] .faq-a{animation:faqOpen .34s var(--ease)}
+@keyframes faqOpen{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media(hover:none){.faq-item summary{cursor:pointer}}
+
+/* ============================================================
    SCROLL REVEALS — multi-direction
    ============================================================ */
 [data-r]{transition:.75s var(--ease)}
@@ -520,6 +573,20 @@ footer{background:var(--ink);color:var(--cream);padding:72px 0 32px}
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"Are you licensed, bonded and insured?","acceptedAnswer":{"@type":"Answer","text":"Yes. The Plumb Line is fully licensed (CA-PLB-7741, C-36), bonded and insured. Every technician is background-checked and carries credentials."}},
+    {"@type":"Question","name":"Do you charge for estimates?","acceptedAnswer":{"@type":"Answer","text":"No. Estimates are free and the price is fixed in writing before any work begins, so there are no surprises on the final bill."}},
+    {"@type":"Question","name":"How fast can you respond to an emergency?","acceptedAnswer":{"@type":"Answer","text":"A real plumber answers our line 24/7/365 and we dispatch a truck immediately. Most Sacramento-area emergencies see a plumber at the door within the hour."}},
+    {"@type":"Question","name":"What areas do you serve?","acceptedAnswer":{"@type":"Answer","text":"The greater Sacramento region, including Elk Grove, Folsom, Roseville, Rocklin, Davis, Woodland, Carmichael, Rancho Cordova, Granite Bay and El Dorado Hills. Not listed? Call us — we likely cover it."}},
+    {"@type":"Question","name":"Do you offer a warranty?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every job carries a 2-year labor warranty in writing. If it isn't right, we come back — no debate, no invoice."}},
+    {"@type":"Question","name":"What payment methods do you accept?","acceptedAnswer":{"@type":"Answer","text":"We accept Visa, Mastercard, check and Venmo. Payment is due once the work is complete and you're satisfied."}}
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -558,6 +625,7 @@ footer{background:var(--ink);color:var(--cream);padding:72px 0 32px}
       <a href="#standard">Our Standard</a>
       <a href="#area">Service Area</a>
       <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
       <a href="#contact">Contact</a>
       <a href="tel:9165550190" class="mob-cta">Call 916-555-0190</a>
       <a href="#contact" class="mob-cta g">Free Estimate</a>
@@ -648,7 +716,7 @@ footer{background:var(--ink);color:var(--cream);padding:72px 0 32px}
     <div class="sec-head" data-r="up">
       <span class="eyebrow">What we do</span>
       <h2>No job too precise, no emergency too late.</h2>
-      <p>Hover a card.</p>
+      <p>From a dripping faucet to a full re-pipe — one crew, one standard, every job done straight.</p>
     </div>
   </div>
   <div class="wrap svc-outer" style="padding-left:0;padding-right:0">
@@ -739,6 +807,51 @@ footer{background:var(--ink);color:var(--cream);padding:72px 0 32px}
   </div>
 </section>
 
+<!-- DIFFERENCE -->
+<section id="difference" class="diff">
+  <div class="wrap">
+    <div class="sec-head center" data-r="up">
+      <span class="eyebrow">The difference</span>
+      <h2>Why Sacramento calls us first.</h2>
+      <p>Same trade, a different standard. Here's what changes when the plumber's name is on the line.</p>
+    </div>
+    <div class="diff-grid" data-r="scale">
+      <div class="diff-col diff-us">
+        <div class="diff-head">
+          <span class="dh-mark" aria-hidden="true">
+            <svg viewBox="0 0 22 36" fill="none"><line x1="11" y1="0" x2="11" y2="5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="8.5" r="3" stroke="#c09952" stroke-width="1.3" fill="none"/><rect x="5.5" y="11.5" width="11" height="3.5" rx=".4" fill="currentColor"/><path d="M5.5 15 L4 18 L4 27 L6 29.5 L11 36 L16 29.5 L18 27 L18 18 L16.5 15Z" fill="currentColor"/></svg>
+          </span>
+          <div><b>The Plumb Line</b><span>Precision Plumbing</span></div>
+        </div>
+        <ul>
+          <li><span class="di di-y" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Flat, written price approved before any work</li>
+          <li><span class="di di-y" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>A real plumber answers, 24/7/365</li>
+          <li><span class="di di-y" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Drop cloths down, site left spotless</li>
+          <li><span class="di di-y" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>2-year labor warranty, in writing</li>
+          <li><span class="di di-y" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Licensed C-36, background-checked techs</li>
+          <li><span class="di di-y" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>A text 20 minutes before we arrive</li>
+        </ul>
+      </div>
+      <div class="diff-col diff-them">
+        <div class="diff-head">
+          <span class="dh-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.7c0 1.7-2.4 2.3-2.4 2.3"/><path d="M12 16.5h.01"/></svg>
+          </span>
+          <div><b>The Other Guy</b><span>A Typical Call-Out</span></div>
+        </div>
+        <ul>
+          <li><span class="di di-n" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>"Hourly plus parts" — surprises on the bill</li>
+          <li><span class="di di-n" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Voicemail, a callback "sometime tomorrow"</li>
+          <li><span class="di di-n" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Muddy footprints and leftover mess</li>
+          <li><span class="di di-n" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>A verbal "should be fine" — and that's it</li>
+          <li><span class="di di-n" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>Subcontracted out — who's actually coming?</li>
+          <li><span class="di di-n" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>An all-day window you wait around for</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PROCESS -->
 <section id="process">
   <div class="wrap">
@@ -818,6 +931,44 @@ footer{background:var(--ink);color:var(--cream);padding:72px 0 32px}
         <blockquote>"Three commercial properties over four years — same quality, same honesty every time. They set the standard for what a plumber should be."</blockquote>
         <div class="who"><div class="av" aria-hidden="true">SL</div><div><b>Sandra L.</b><span>Property Manager · Roseville</span></div></div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="area" style="background:var(--cream)">
+  <div class="wrap faq-grid">
+    <div class="faq-intro" data-r="left">
+      <span class="eyebrow">FAQ</span>
+      <h2>Straight answers.</h2>
+      <p>No jargon, no runaround. If your question isn't here, call us — a real person picks up, day or night.</p>
+      <a href="#contact" class="btn btn-green mag">Still have a question?</a>
+    </div>
+    <div class="faq-list" data-r="right">
+      <details class="faq-item" open>
+        <summary>Are you licensed, bonded and insured?<span class="faq-ic" aria-hidden="true"></span></summary>
+        <div class="faq-a">Yes — fully licensed (CA-PLB-7741, C-36), bonded and insured. Every technician is background-checked and carries credentials, so you always know exactly who's in your home.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you charge for estimates?<span class="faq-ic" aria-hidden="true"></span></summary>
+        <div class="faq-a">Never. Estimates are free and the price is fixed in writing before any work begins. You approve the number first — there are no surprises on the final bill and no "while we're in there" upsells.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How fast can you respond to an emergency?<span class="faq-ic" aria-hidden="true"></span></summary>
+        <div class="faq-a">A real plumber answers our line 24/7/365 and we dispatch a truck immediately. Most emergencies across the Sacramento area see a plumber at the door within the hour.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What areas do you serve?<span class="faq-ic" aria-hidden="true"></span></summary>
+        <div class="faq-a">The greater Sacramento region — including Elk Grove, Folsom, Roseville, Rocklin, Davis, Woodland, Carmichael, Rancho Cordova, Granite Bay and El Dorado Hills. Don't see your city? Call us; we probably cover it.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you offer a warranty?<span class="faq-ic" aria-hidden="true"></span></summary>
+        <div class="faq-a">Every job carries a 2-year labor warranty in writing. If it isn't right, we come back and make it right — no debate, no invoice.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What payment methods do you accept?<span class="faq-ic" aria-hidden="true"></span></summary>
+        <div class="faq-a">Visa, Mastercard, check and Venmo. Payment is due only once the work is complete and you're satisfied with it.</div>
+      </details>
     </div>
   </div>
 </section>
@@ -909,7 +1060,7 @@ footer{background:var(--ink);color:var(--cream);padding:72px 0 32px}
         <h4>Company</h4>
         <a href="#standard">Our Standard</a><a href="#process">How it works</a>
         <a href="#area">Service area</a><a href="#reviews">Reviews</a>
-        <a href="#contact">Free estimate</a>
+        <a href="#faq">FAQ</a><a href="#contact">Free estimate</a>
       </div>
       <div class="foot-col">
         <h4>Contact</h4>
@@ -948,7 +1099,7 @@ document.addEventListener('mouseup', () => ring.classList.remove('pressed'));
   rafId = requestAnimationFrame(loop);
 })();
 
-document.querySelectorAll('a,button,.btn,.svc,.tcard,.hcard,.ci').forEach(el => {
+document.querySelectorAll('a,button,.btn,.svc,.tcard,.hcard,.ci,.faq-item summary').forEach(el => {
   el.addEventListener('mouseenter', () => ring.classList.add('big'));
   el.addEventListener('mouseleave', () => ring.classList.remove('big'));
 });
@@ -1239,6 +1390,14 @@ document.getElementById('qForm').addEventListener('submit', e => {
   document.getElementById('qOk').classList.add('show');
 });
 document.querySelectorAll('#qForm input').forEach(i => i.addEventListener('input', e => e.target.style.borderColor = ''));
+
+/* ============================================================
+   FAQ — single-open accordion
+   ============================================================ */
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(it => it.addEventListener('toggle', () => {
+  if (it.open) faqItems.forEach(o => { if (o !== it) o.open = false; });
+}));
 </script>
 </body>
 </html>
