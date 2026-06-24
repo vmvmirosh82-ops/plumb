@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pear</title>
+<meta name="description" content="Pear. Ripe for everything. Discover Pear Phone, Pear Book, Pear Watch and more."/>
+<meta name="theme-color" content="#ffffff"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 28'%3E%3Cpath d='M13 5c1.5-2 3.5-2.6 4.8-2.4.2 1.3-.4 3.3-2.4 4.8-1.2.9-2.4.6-2.4.6s-.9-1.8 0-3z' fill='%231d1d1f'/%3E%3Cpath d='M12.2 7.2c-2-.2-3.6.8-4.8 2.4C6 11.4 5.4 13.8 5.4 16c0 4.6 3 7.8 6.6 7.8s6.6-3.2 6.6-7.8c0-2.6-.9-5.2-2.6-6.8-1-1-2.2-1.6-3.4-1.8z' fill='%231d1d1f'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#fff; --gray:#f5f5f7; --gray-2:#e8e8ed;
+  --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#86868b;
+  --blue:#0071e3; --blue-hi:#0077ed; --blue-link:#2997ff;
+  --pear:#84bd47;
+  --maxw:1024px;
+  --f: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --ease:cubic-bezier(.28,.11,.32,1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--f);background:var(--bg);color:var(--ink);line-height:1.4;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+::selection{background:#b5d6ff}
+
+/* link style (Apple chevron links) */
+.lnk{color:var(--blue);font-size:clamp(1.05rem,1.6vw,1.4rem);font-weight:400;display:inline-flex;align-items:center;gap:.1em;transition:.2s}
+.lnk:hover{text-decoration:underline}
+.lnk::after{content:"›";font-size:1.15em;line-height:1;transform:translateY(-1px);margin-left:.1em;text-decoration:none;display:inline-block}
+.lnk.wht{color:var(--blue-link)}
+.links-row{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+
+/* pill button */
+.pill{display:inline-flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;
+  font-size:1.05rem;font-weight:400;padding:.5em 1.1em;border-radius:980px;border:0;cursor:pointer;transition:background .2s,transform .2s}
+.pill:hover{background:var(--blue-hi)}
+.pill.sm{font-size:.92rem;padding:.45em 1em}
+
+/* ===================== NAV ===================== */
+.nav{position:sticky;top:0;z-index:100;height:48px;background:rgba(251,251,253,.78);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,.06)}
+.nav-in{max-width:1024px;margin:0 auto;height:100%;padding:0 22px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{color:var(--ink)}
+.nav-logo svg{width:17px;height:20px}
+.nav-menu{display:flex;align-items:center;gap:0;flex:1;justify-content:center}
+.nav-menu a{font-size:.8rem;font-weight:400;color:rgba(29,29,31,.85);padding:0 11px;line-height:48px;transition:.2s}
+.nav-menu a:hover{color:var(--ink)}
+.nav-ic{display:flex;align-items:center;gap:18px;color:rgba(29,29,31,.85)}
+.nav-ic svg{width:16px;height:16px;cursor:pointer;transition:.2s}
+.nav-ic svg:hover{color:var(--ink)}
+.nav-burger{display:none;background:none;border:0;cursor:pointer;color:var(--ink)}
+@media(max-width:833px){
+  .nav-menu{display:none}
+  .nav-burger{display:block}
+}
+
+/* ===================== UNIT (Apple homepage block) ===================== */
+.unit{text-align:center;padding:55px 16px 0;overflow:hidden;position:relative}
+.unit.dark{background:#000;color:#f5f5f7}
+.unit.gray{background:var(--gray)}
+.unit h2{font-size:clamp(2.5rem,5.6vw,3.5rem);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+.unit .sub{font-size:clamp(1.3rem,2.4vw,1.75rem);font-weight:400;margin-top:.2em;letter-spacing:-.01em}
+.unit .sub.muted{color:var(--ink-2)}
+.unit .price{font-size:1.05rem;color:var(--ink-2);margin-top:.7em}
+.unit.dark .price{color:#86868b}
+.unit .links-row{margin-top:14px}
+
+/* hero */
+.hero{padding-top:48px}
+.hero h1{font-size:clamp(3rem,7vw,4.5rem);font-weight:600;letter-spacing:-.03em;line-height:1}
+.hero .tag{font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:400;margin-top:.25em;color:var(--ink-2)}
+.hero .links-row{margin-top:18px}
+
+/* color picker */
+.swatches{display:flex;gap:12px;justify-content:center;margin:26px 0 4px}
+.swatch{width:26px;height:26px;border-radius:50%;cursor:pointer;position:relative;transition:transform .2s}
+.swatch::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid transparent;transition:.2s}
+.swatch[aria-pressed="true"]::after{border-color:var(--ink-3)}
+.swatch:hover{transform:scale(1.1)}
+.sw-label{font-size:.82rem;color:var(--ink-2);margin-top:2px;min-height:1.2em}
+
+/* ===================== DEVICE: PHONE ===================== */
+.stage{display:flex;justify-content:center;align-items:flex-end;margin-top:30px}
+.phone{--frame:linear-gradient(145deg,#a8d57e,#6fae3e);--wall:radial-gradient(120% 120% at 30% 20%,#cdeeaa,#6fae3e 60%,#4d8a2a);
+  width:clamp(240px,30vw,300px);aspect-ratio:300/610;border-radius:13% / 6.4%;background:var(--frame);
+  padding:2.6%;position:relative;box-shadow:0 2px 6px rgba(0,0,0,.18),0 30px 60px -20px rgba(0,0,0,.4);
+  transition:background .6s var(--ease);animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.phone::before{content:"";position:absolute;top:24%;right:-2px;width:2px;height:9%;background:rgba(0,0,0,.25);border-radius:2px}
+.phone::after{content:"";position:absolute;top:14%;left:-2px;width:2px;height:6%;background:rgba(0,0,0,.2);border-radius:2px;
+  box-shadow:0 26px 0 rgba(0,0,0,.2),0 50px 0 rgba(0,0,0,.2)}
+.phone .scr{width:100%;height:100%;border-radius:10% / 5.6%;background:var(--wall);position:relative;overflow:hidden;
+  transition:background .6s var(--ease);box-shadow:inset 0 0 0 2px rgba(0,0,0,.12)}
+.phone .scr::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.32) 0%,transparent 32%)}
+.phone .island{position:absolute;top:3.4%;left:50%;transform:translateX(-50%);width:32%;height:3.6%;background:#000;border-radius:980px;z-index:2}
+.phone .clock{position:absolute;top:13%;left:0;right:0;text-align:center;color:#fff;font-weight:600;font-size:clamp(2.4rem,5vw,3.1rem);letter-spacing:-.02em;z-index:2;text-shadow:0 1px 8px rgba(0,0,0,.2)}
+.phone .clock span{display:block;font-size:.34em;font-weight:500;letter-spacing:0;opacity:.95;margin-top:.1em}
+
+/* ===================== DEVICE: LAPTOP ===================== */
+.laptop{width:clamp(320px,46vw,560px);margin:0 auto}
+.laptop .lid{height:clamp(200px,28vw,330px);background:linear-gradient(160deg,#2c2c2e,#1c1c1e);border:2px solid #3a3a3c;
+  border-radius:18px;padding:11px;box-shadow:0 24px 50px -18px rgba(0,0,0,.5)}
+.laptop .lid .disp{width:100%;height:100%;border-radius:9px;background:radial-gradient(130% 130% at 70% 10%,#1f6feb,#7c3aed 55%,#0a0a12);position:relative;overflow:hidden}
+.laptop .lid .disp::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.18),transparent 40%)}
+.laptop .base{height:14px;background:linear-gradient(#c8c9cd,#9a9ba0);border-radius:0 0 11px 11px;position:relative;width:104%;margin-left:-2%}
+.laptop .base::after{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:16%;height:7px;background:#7d7e83;border-radius:0 0 8px 8px}
+
+/* ===================== DEVICE: WATCH ===================== */
+.watch{width:clamp(120px,17vw,150px);margin:0 auto}
+.watch .band{height:34px;width:62%;margin:0 auto;background:linear-gradient(#ff6a5e,#e23b30)}
+.watch .case{height:clamp(140px,20vw,170px);background:linear-gradient(150deg,#3a3a3c,#1c1c1e);border-radius:34px;padding:9px;
+  box-shadow:0 18px 36px -14px rgba(0,0,0,.45);position:relative;z-index:2}
+.watch .face{width:100%;height:100%;border-radius:26px;background:#000;position:relative;overflow:hidden}
+.watch .face::before{content:"";position:absolute;inset:0;background:conic-gradient(from 180deg,#ff5a3d,#ffb43d,#84bd47,#1f6feb,#7c3aed,#ff5a3d)}
+.watch .face::after{content:"";position:absolute;inset:18%;border-radius:50%;background:#000}
+.watch .crown{position:absolute;right:-3px;top:34%;width:4px;height:16px;background:#5a5a5c;border-radius:2px}
+
+/* ===================== DEVICE: GENERIC SLAB (pad / tv) ===================== */
+.slab{width:clamp(220px,30vw,330px);aspect-ratio:4/3;margin:0 auto;border-radius:18px;padding:10px;
+  background:linear-gradient(150deg,#3a3a3c,#1c1c1e);box-shadow:0 20px 44px -16px rgba(0,0,0,.45)}
+.slab .scr{width:100%;height:100%;border-radius:9px;position:relative;overflow:hidden;background:var(--g,radial-gradient(120% 120% at 30% 20%,#ff8a5b,#ff3d6e 60%,#7c3aed))}
+.slab .scr::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.2),transparent 40%)}
+
+/* ===================== TILE GRID ===================== */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:1024px;margin:12px auto 0;padding:0 12px}
+@media(max-width:734px){.grid2{grid-template-columns:1fr}}
+.tile{border-radius:0;overflow:hidden;text-align:center;padding:48px 16px 0;min-height:560px;display:flex;flex-direction:column;align-items:center}
+.tile.lt{background:var(--gray);color:var(--ink)}
+.tile.dk{background:#000;color:#f5f5f7}
+.tile h3{font-size:clamp(2rem,3.6vw,2.6rem);font-weight:600;letter-spacing:-.02em}
+.tile .ts{font-size:clamp(1.1rem,1.8vw,1.35rem);margin-top:.15em}
+.tile.lt .ts{color:var(--ink-2)}
+.tile .links-row{margin-top:12px}
+.tile .dev{margin-top:auto;padding-top:30px}
+
+/* ===================== BIG STATEMENT ===================== */
+.statement{background:#fff;text-align:center;padding:120px 22px}
+.statement p{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:600;letter-spacing:-.02em;line-height:1.12;max-width:18ch;margin:0 auto;color:var(--ink)}
+.statement .hl{background:linear-gradient(90deg,#84bd47,#1f6feb,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ===================== FOOTER ===================== */
+footer{background:var(--gray);color:var(--ink-2);font-size:.75rem;line-height:1.5}
+.foot-in{max-width:1024px;margin:0 auto;padding:0 22px}
+.foot-note{padding:18px 0;border-bottom:1px solid var(--gray-2)}
+.foot-note p{margin-bottom:8px}
+.foot-cols{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;padding:20px 0;border-bottom:1px solid var(--gray-2)}
+@media(max-width:833px){.foot-cols{grid-template-columns:1fr 1fr}}
+.foot-cols h5{font-size:.75rem;color:var(--ink);margin-bottom:8px}
+.foot-cols a{display:block;color:var(--ink-2);margin-bottom:7px;transition:.15s}
+.foot-cols a:hover{color:var(--ink);text-decoration:underline}
+.foot-bot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:16px 0 40px}
+.foot-bot .legal{display:flex;gap:14px;flex-wrap:wrap}
+.foot-bot a:hover{text-decoration:underline}
+
+/* reveal */
+[data-r]{opacity:0;transform:translateY(34px);transition:.9s var(--ease)}
+[data-r].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-r]{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-in">
+    <a href="#" class="nav-logo" aria-label="Pear">
+      <svg viewBox="0 0 24 28" fill="currentColor"><path d="M13 5c1.5-2 3.5-2.6 4.8-2.4.2 1.3-.4 3.3-2.4 4.8-1.2.9-2.4.6-2.4.6s-.9-1.8 0-3z"/><path d="M12.2 7.2c-2-.2-3.6.8-4.8 2.4C6 11.4 5.4 13.8 5.4 16c0 4.6 3 7.8 6.6 7.8s6.6-3.2 6.6-7.8c0-2.6-.9-5.2-2.6-6.8-1-1-2.2-1.6-3.4-1.8z"/></svg>
+    </a>
+    <div class="nav-menu">
+      <a href="#">Store</a><a href="#hero">Pear Phone</a><a href="#book">Pear Book</a>
+      <a href="#watch">Watch</a><a href="#pods">Pods</a><a href="#pad">Pad</a><a href="#tv">TV</a><a href="#">Support</a>
+    </div>
+    <div class="nav-ic">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 7h13l-1.4 9.5a2 2 0 0 1-2 1.7H9.4a2 2 0 0 1-2-1.7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <button class="nav-burger" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO — PEAR PHONE -->
+<section class="unit hero" id="hero">
+  <h1>Pear Phone</h1>
+  <p class="tag">Ripe for everything.</p>
+  <div class="links-row">
+    <a href="#" class="lnk">Learn more</a>
+    <a href="#" class="lnk">Buy</a>
+  </div>
+
+  <div class="swatches" id="swatches" role="group" aria-label="Choose a colour">
+    <button class="swatch" style="background:linear-gradient(145deg,#a8d57e,#6fae3e)" data-name="Pear Green" aria-pressed="true"></button>
+    <button class="swatch" style="background:linear-gradient(145deg,#3a3f47,#1a1d22)" data-name="Midnight" aria-pressed="false"></button>
+    <button class="swatch" style="background:linear-gradient(145deg,#edeef1,#bcc0c7)" data-name="Silver" aria-pressed="false"></button>
+    <button class="swatch" style="background:linear-gradient(145deg,#ff9a7a,#ff5a3d)" data-name="Coral" aria-pressed="false"></button>
+    <button class="swatch" style="background:linear-gradient(145deg,#f0dcae,#d9b877)" data-name="Gold" aria-pressed="false"></button>
+    <button class="swatch" style="background:linear-gradient(145deg,#6f5b95,#3a2f52)" data-name="Deep Purple" aria-pressed="false"></button>
+  </div>
+  <div class="sw-label" id="swLabel">Pear Green</div>
+
+  <div class="stage">
+    <div class="phone" id="phone">
+      <div class="scr">
+        <div class="island"></div>
+        <div class="clock">9:41<span>Tuesday, June 16</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PEAR BOOK -->
+<section class="unit gray" id="book">
+  <h2>Pear Book</h2>
+  <p class="sub muted">Featherlight. Heavyweight.</p>
+  <div class="links-row">
+    <a href="#" class="lnk">Learn more</a>
+    <a href="#" class="lnk">Buy</a>
+  </div>
+  <div class="stage" data-r>
+    <div class="laptop">
+      <div class="lid"><div class="disp"></div></div>
+      <div class="base"></div>
+    </div>
+  </div>
+  <div style="height:55px"></div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <p data-r>A different fruit. <span class="hl">Deliciously simple.</span></p>
+</section>
+
+<!-- GRID: WATCH / PODS -->
+<div class="grid2">
+  <section class="tile lt" id="watch" data-r>
+    <h3>Pear Watch</h3>
+    <p class="ts">Your wrist, leveled up.</p>
+    <div class="links-row"><a href="#" class="lnk">Learn more</a><a href="#" class="lnk">Buy</a></div>
+    <div class="dev"><div class="watch"><div class="band"></div><div class="case"><div class="face"></div><div class="crown"></div></div></div></div>
+  </section>
+
+  <section class="tile dk" id="pods" data-r data-d="1">
+    <h3>Pear Pods</h3>
+    <p class="ts">Sound, undiluted.</p>
+    <div class="links-row"><a href="#" class="lnk wht">Learn more</a><a href="#" class="lnk wht">Buy</a></div>
+    <div class="dev"><div class="slab" style="--g:radial-gradient(120% 120% at 30% 20%,#3a3a3c,#0a0a0c);aspect-ratio:1/1;max-width:230px">
+      <div class="scr" style="display:flex;align-items:center;justify-content:center;gap:14%">
+        <div style="width:18%;aspect-ratio:1/2.4;background:linear-gradient(#fff,#dadade);border-radius:40% 40% 50% 50%/14% 14% 50% 50%"></div>
+        <div style="width:18%;aspect-ratio:1/2.4;background:linear-gradient(#fff,#dadade);border-radius:40% 40% 50% 50%/14% 14% 50% 50%"></div>
+      </div>
+    </div></div>
+  </section>
+</div>
+
+<!-- GRID: PAD / TV -->
+<div class="grid2">
+  <section class="tile dk" id="pad" data-r>
+    <h3>Pear Pad</h3>
+    <p class="ts">Your canvas. Supercharged.</p>
+    <div class="links-row"><a href="#" class="lnk wht">Learn more</a><a href="#" class="lnk wht">Buy</a></div>
+    <div class="dev"><div class="slab" style="--g:radial-gradient(120% 120% at 25% 15%,#84bd47,#1f6feb 65%,#0a0a12)"><div class="scr"></div></div></div>
+  </section>
+
+  <section class="tile lt" id="tv" data-r data-d="1">
+    <h3>Pear TV 4K</h3>
+    <p class="ts">The main event.</p>
+    <div class="links-row"><a href="#" class="lnk">Learn more</a><a href="#" class="lnk">Buy</a></div>
+    <div class="dev"><div class="slab" style="--g:radial-gradient(120% 120% at 70% 20%,#ff8a5b,#ff3d6e 55%,#7c3aed);aspect-ratio:16/10"><div class="scr"></div></div></div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-note">
+      <p>1. Pear Phone trade-in values vary. Actual ripeness may differ.</p>
+      <p>Pear and the Pear logo are fictional trademarks created for this demo. Features and availability shown are illustrative.</p>
+    </div>
+    <div class="foot-cols">
+      <div><h5>Shop and Learn</h5><a href="#">Store</a><a href="#hero">Pear Phone</a><a href="#book">Pear Book</a><a href="#watch">Watch</a><a href="#pad">Pad</a><a href="#tv">TV</a></div>
+      <div><h5>Services</h5><a href="#">PearOS</a><a href="#">PearCloud+</a><a href="#">Pear Music</a><a href="#">Pear Pay</a><a href="#">Pear Care+</a></div>
+      <div><h5>Account</h5><a href="#">Manage your Pear ID</a><a href="#">Pear Store Account</a><a href="#">iCloud… we mean PearCloud</a></div>
+      <div><h5>Pear Store</h5><a href="#">Find a Store</a><a href="#">Genius Orchard</a><a href="#">Today at Pear</a><a href="#">Trade In</a><a href="#">Financing</a></div>
+      <div><h5>About Pear</h5><a href="#">Newsroom</a><a href="#">Leadership</a><a href="#">Careers</a><a href="#">Investors</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bot">
+      <span>Copyright © 2026 Pear Inc. All rights reserved.</span>
+      <div class="legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Sales Policy</a><a href="#">Legal</a><a href="#">Site Map</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* reveals */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.15});
+document.querySelectorAll('[data-r]').forEach(el=>io.observe(el));
+
+/* phone parallax */
+const phone=document.getElementById('phone');
+addEventListener('scroll',()=>{const r=phone.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+  const p=(innerHeight-r.top)/innerHeight;phone.style.setProperty('--py',(p*8).toFixed(1));},{passive:true});
+
+/* color picker */
+const looks={
+  'Pear Green':{f:'linear-gradient(145deg,#a8d57e,#6fae3e)',w:'radial-gradient(120% 120% at 30% 20%,#cdeeaa,#6fae3e 60%,#4d8a2a)'},
+  'Midnight':{f:'linear-gradient(145deg,#3a3f47,#1a1d22)',w:'radial-gradient(120% 120% at 30% 20%,#3b4a63,#141a26 65%,#0a0d14)'},
+  'Silver':{f:'linear-gradient(145deg,#edeef1,#bcc0c7)',w:'radial-gradient(120% 120% at 30% 20%,#f4f6f9,#c2c6cd 60%,#9aa0a8)'},
+  'Coral':{f:'linear-gradient(145deg,#ff9a7a,#ff5a3d)',w:'radial-gradient(120% 120% at 30% 20%,#ffd0a8,#ff6a4d 60%,#e23b2a)'},
+  'Gold':{f:'linear-gradient(145deg,#f0dcae,#d9b877)',w:'radial-gradient(120% 120% at 30% 20%,#fff0cf,#e3c489 60%,#caa75f)'},
+  'Deep Purple':{f:'linear-gradient(145deg,#6f5b95,#3a2f52)',w:'radial-gradient(120% 120% at 30% 20%,#8f7ab5,#4a3c6b 60%,#2a2140)'}
+};
+const swLabel=document.getElementById('swLabel');
+document.querySelectorAll('#swatches .swatch').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('#swatches .swatch').forEach(b=>b.setAttribute('aria-pressed','false'));
+    btn.setAttribute('aria-pressed','true');
+    const n=btn.dataset.name,l=looks[n];
+    phone.style.setProperty('--frame',l.f);
+    phone.querySelector('.scr').style.setProperty('--wall',l.w);
+    phone.style.background=l.f;phone.querySelector('.scr').style.background=l.w;
+    swLabel.textContent=n;
+  });
+});
+</script>
+</body>
+</html>
