@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Isle Survival</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <div id="hud" class="hidden">
+    <div id="bars">
+      <div class="bar hp"><div class="fill" id="hpFill"></div><span class="label" id="hpLabel"></span></div>
+      <div class="bar stamina"><div class="fill" id="stFill"></div><span class="label" id="stLabel"></span></div>
+      <div class="bar hunger"><div class="fill" id="hgFill"></div><span class="label" id="hgLabel"></span></div>
+      <div class="bar thirst"><div class="fill" id="thFill"></div><span class="label" id="thLabel"></span></div>
+    </div>
+    <div id="levelBox">
+      <div>Lv <span id="lvl">1</span></div>
+      <div class="bar xp"><div class="fill" id="xpFill"></div></div>
+    </div>
+    <div id="clock"><span id="clockIcon">☀️</span> <span id="clockLabel">Day 1</span></div>
+  </div>
+
+  <div id="toolbar" class="hidden">
+    <div id="equipSlots">Tool: <span id="equippedToolLabel">-</span> &nbsp;|&nbsp; Weapon: <span id="equippedWeaponLabel">-</span></div>
+    <div id="hint">WASD move &middot; Shift sprint &middot; E interact &middot; Space attack &middot; I inventory &middot; C craft &middot; B build &middot; Esc close</div>
+    <div id="menuButtons">
+      <button data-panel="inventoryPanel">Inventory (I)</button>
+      <button data-panel="craftingPanel">Craft (C)</button>
+      <button data-panel="buildingPanel">Build (B)</button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="panels">
+    <div class="panel hidden" id="inventoryPanel">
+      <h2>Inventory <button class="close" data-close>✕</button></h2>
+      <div class="panelBody" id="inventoryList"></div>
+    </div>
+
+    <div class="panel hidden" id="craftingPanel">
+      <h2>Crafting <button class="close" data-close>✕</button></h2>
+      <div class="panelBody" id="craftingList"></div>
+    </div>
+
+    <div class="panel hidden" id="buildingPanel">
+      <h2>Build <button class="close" data-close>✕</button></h2>
+      <p class="hintSmall">Select a piece, then click in the world to place it. Esc to cancel.</p>
+      <div class="panelBody" id="buildingList"></div>
+    </div>
+
+    <div class="panel hidden" id="storagePanel">
+      <h2>Storage Box <button class="close" data-close>✕</button></h2>
+      <div class="panelBody" id="storageList"></div>
+      <div id="storageActions">
+        <button id="depositAllBtn">Deposit All</button>
+        <button id="withdrawAllBtn">Withdraw All</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="deathScreen" class="hidden">
+    <h1>You Died</h1>
+    <p>Respawning at camp...</p>
+  </div>
+
+  <div id="startScreen">
+    <h1>🦖 Isle Survival</h1>
+    <p class="tagline">A tiny ARK-like survival prototype &mdash; gather, craft, build, tame.</p>
+    <div id="startButtons">
+      <button id="newGameBtn">New Game</button>
+      <button id="continueBtn" class="hidden">Continue</button>
+    </div>
+    <p class="controls">WASD move &middot; Shift sprint &middot; E interact/gather/feed/drink &middot; Space attack<br/>I inventory &middot; C craft &middot; B build &middot; Esc close menus</p>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

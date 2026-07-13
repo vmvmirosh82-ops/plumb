@@ -1,0 +1,188 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0c0f08;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: #f1ead9;
+  user-select: none;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+  display: block;
+  cursor: crosshair;
+}
+
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#hud {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+
+#bars { display: flex; flex-direction: column; gap: 5px; width: 190px; }
+
+.bar {
+  position: relative;
+  height: 16px;
+  border-radius: 4px;
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.15);
+  overflow: hidden;
+}
+.bar .fill { height: 100%; width: 100%; transition: width .2s; }
+.bar .label {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; letter-spacing: .3px;
+}
+.bar.hp .fill { background: linear-gradient(90deg,#7a1f1f,#c23a3a); }
+.bar.stamina .fill { background: linear-gradient(90deg,#7a7a1f,#c7c23a); }
+.bar.hunger .fill { background: linear-gradient(90deg,#8a5215,#e08a2e); }
+.bar.thirst .fill { background: linear-gradient(90deg,#1f4f7a,#3aa0c2); }
+.bar.xp .fill { background: linear-gradient(90deg,#3a6b3a,#63c263); }
+
+#levelBox {
+  background: rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 6px;
+  padding: 6px 10px;
+  width: 110px;
+}
+#levelBox .bar { height: 10px; margin-top: 4px; }
+
+#clock {
+  background: rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-weight: 600;
+}
+
+/* ---------- Toolbar ---------- */
+#toolbar {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  background: rgba(0,0,0,.5);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px;
+  padding: 8px 16px;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
+}
+#equipSlots { font-size: 13px; margin-bottom: 4px; }
+#hint { font-size: 11px; opacity: .75; margin-bottom: 6px; }
+#menuButtons button, #startButtons button, #storageActions button {
+  background: #3a4a2a;
+  border: 1px solid #5c7a3c;
+  color: #f1ead9;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  margin: 0 3px;
+}
+#menuButtons button:hover, #storageActions button:hover { background: #4c6338; }
+
+/* ---------- Toast ---------- */
+#toast {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  pointer-events: none;
+}
+#toast .msg {
+  background: rgba(0,0,0,.65);
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  animation: fadeOut 2.2s forwards;
+}
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translateY(0); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+/* ---------- Panels ---------- */
+#panels { position: fixed; inset: 0; z-index: 30; pointer-events: none; }
+.panel {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(480px, 90vw);
+  max-height: 74vh;
+  background: rgba(20, 22, 14, .95);
+  border: 1px solid #5c7a3c;
+  border-radius: 10px;
+  padding: 14px 16px;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0,0,0,.6);
+}
+.panel h2 { margin: 0 0 8px 0; display: flex; justify-content: space-between; align-items: center; font-size: 17px; }
+.panel .close { background: none; border: none; color: #f1ead9; font-size: 16px; cursor: pointer; }
+.panelBody { overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.hintSmall { font-size: 11px; opacity: .7; margin: 0 0 8px; }
+
+.itemRow, .recipeRow, .buildRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+.itemRow .icon, .recipeRow .icon, .buildRow .icon { font-size: 20px; width: 26px; text-align: center; }
+.itemRow .name, .recipeRow .name, .buildRow .name { flex: 1; }
+.itemRow .qty { opacity: .8; }
+.itemRow button, .recipeRow button, .buildRow button {
+  background: #3a4a2a; border: 1px solid #5c7a3c; color: #f1ead9;
+  padding: 4px 9px; border-radius: 4px; font-size: 11px; cursor: pointer;
+}
+.itemRow button:disabled, .recipeRow button:disabled, .buildRow button:disabled {
+  opacity: .35; cursor: not-allowed;
+}
+.recipeRow.locked { opacity: .5; }
+.recipeRow .cost, .buildRow .cost { font-size: 11px; opacity: .75; }
+.buildRow.selected { outline: 2px solid #c7c23a; }
+
+/* ---------- Death / Start screens ---------- */
+#deathScreen, #startScreen {
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(5,5,3,.92);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+}
+#deathScreen h1 { color: #c23a3a; }
+#startScreen h1 { font-size: 42px; margin-bottom: 4px; }
+#startScreen .tagline { opacity: .8; margin-top: 0; }
+#startScreen .controls { font-size: 12px; opacity: .6; margin-top: 24px; line-height: 1.6; }
+#startButtons { margin-top: 14px; }
+#startButtons button { padding: 10px 20px; font-size: 14px; }
